@@ -14,7 +14,7 @@ class Rock extends Phaser.GameObjects.Sprite{
         scene.add.existing(this)
 
         scene.physics.world.enableBody(this)
-        this.body.velocity.x = -150;
+        this.body.velocity.x = -VELOCITY;
         // this.body.height = 10
         
         // this.body.setOffset(0, this.height)
@@ -24,6 +24,7 @@ class Rock extends Phaser.GameObjects.Sprite{
         return this.lane
     }
     update(){
+        this.body.velocity.x = - VELOCITY
         if(this.x < -500){
             this.destroy()
         }

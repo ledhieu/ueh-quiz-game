@@ -1,6 +1,6 @@
 class StartScene extends Phaser.Scene {
     constructor(){
-        super('bootGame')
+        super('start scene')
         
     }
 
@@ -20,8 +20,7 @@ class StartScene extends Phaser.Scene {
         this.add.text(20, 20, 'loading game')
         this.startButton = this.add.image(this.width / 2, this.height / 2, "button")
         this.startButton.setScale(0.3)
-        
-        this.startButton.setInteractive()
+            .setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
                 this.startButton.setTint(0xdedede)
             })

@@ -25,7 +25,7 @@ class TheLeScene extends Phaser.Scene {
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
                 skip.setTint(0xffffff)
             })
-            .on('gameobjectdown', () => {
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                 skip.setTint(0x8afbff)
                 this.scene.start('main game')
             })
