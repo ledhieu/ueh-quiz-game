@@ -46,8 +46,9 @@
             active = false
             answer = undefined
             console.log('setting game over')
-            window.phaserPlugin.start('game over')
             window.phaserPlugin.stop('main game')
+            window.phaserPlugin.start('game over')
+            
             console.log('set game over')
         }
         window.setNotGameOver = () => {

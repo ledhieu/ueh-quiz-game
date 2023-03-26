@@ -5,7 +5,7 @@ class StartScene extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image("citynight", "assets/cityskylinelong.png")
+        this.load.image("citynight", "assets/citynight.png")
         this.load.spritesheet('scooter', "assets/scooter_cropped_flipped.png", {
             frameWidth: 505,
             frameHeight: 399,
