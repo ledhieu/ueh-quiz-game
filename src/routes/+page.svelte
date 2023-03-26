@@ -139,7 +139,9 @@
         window.phaserPlugin.start('main game')
     }
 </script>
-
+<div style="position:fixed; bottom: 20px; right: 20px; z-index: 20; font-size: 13px">
+    Created by <a href="https://ldhieu.vercel.app" target="_blank">Lê Đức Hiếu</a>
+</div>
 <div id="container">
     <div id="game-container">
         {#if timer >= 0 || announcement}
