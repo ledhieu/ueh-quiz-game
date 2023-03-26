@@ -310,7 +310,10 @@
     #question-container, #form-container, #thele-container{
         padding: 20px;
         border-radius: 15px;
-        background: white;
+        /* background: white; */
+    }
+    .card{
+        background: none;
     }
     #question-container p, #form-container p, #thele-container p{
         font-size: 16px;
@@ -388,7 +391,8 @@
             width: 30%;
             height: 90%;
             border-radius: 15px;
-            padding: 40px
+            padding: 40px;
+            background: white;
         }
         #form-container, #thele-container{
             height: min-content;

@@ -94,8 +94,8 @@ class MainGame extends Phaser.Scene{
         /**
          * Control buttons
          */
-        this.up = this.add.image(width - 100, height - 200, "up")
-            .setScale(this.width > 900 ? 0.4 : 0.6)
+        this.up = this.add.image(width - 100, this.width > 900 ? height - 230 : height - 350, "up")
+            .setScale(this.width > 900 ? 0.6 : 1)
             .setDepth(100)
             .setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
@@ -109,8 +109,8 @@ class MainGame extends Phaser.Scene{
                 this.goUp()
             })
 
-        this.down = this.add.image(width - 100, height - 100, "down")
-            .setScale(this.width > 900 ? 0.4 : 0.6)
+        this.down = this.add.image(width - 100, this.width > 900 ? height - 100 : height - 100, "down")
+            .setScale(this.width > 900 ? 0.6 : 1)
             .setDepth(100)
             .setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
