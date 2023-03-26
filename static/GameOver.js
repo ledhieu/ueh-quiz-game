@@ -27,8 +27,7 @@ class GameOver extends Phaser.Scene{
 
     create(){
         this.plugin = new Phaser.Scenes.ScenePlugin(this)
-        window.phaserPlugin = this.plugin
-        window.setGameOver();
+        window.phaserPlugin = this.plugin //update the global phaserPlugin every scene
 
         let { width, height } = this.sys.game.canvas;
         this.width = width;
@@ -38,8 +37,8 @@ class GameOver extends Phaser.Scene{
             .setOrigin(0, 0)
             .setDisplaySize(this.width + 100, this.height)
             .setDepth(-100)
-        this.physics.world.enableBody(this.background)
-        this.background.body.velocity.x = -1
+        // this.physics.world.enableBody(this.background)
+        // this.background.body.velocity.x = -1
 
         this.xe = this.add.sprite(200, height - 200, "scooter")
             .setOrigin(0, 0)
@@ -56,13 +55,14 @@ class GameOver extends Phaser.Scene{
         this.physics.world.enableBody(this.xe)
         this.xe.body.width = 150
         this.xe.body.setOffset(120, 0)
-        this.goDown();
+        
 
         this.beam = this.add.image(380, this.height - 43, "beam")
         this.beam.setOrigin(0, 1)
             .setScale(0.35, 0.35)
             .setAlpha(0.8)
             .setDepth(10 + 2)
+        if(window.lane == 0) this.goDown(); else this.goUp();
 
         this.replayButton = this.add.image(this.width / 2 - 60, this. height / 2 + 70, "restartButton")
         this.replayButton.setScale(0.25)
@@ -76,7 +76,6 @@ class GameOver extends Phaser.Scene{
             })
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                 this.replayButton.setTint(0x8afbff)
-                window.setNotGameOver();
                 this.scene.start('main game')
             })
 
@@ -92,8 +91,7 @@ class GameOver extends Phaser.Scene{
             })
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                 this.homeButton.setTint(0x8afbff)
-                window.setNotGameOver();
-                this.scene.start('start scene')
+                window.setHomeScene()
             })
 
         this.gameOverText = this.add.image(this.width / 2, this.height /2 - 50, 'gameOverText')
@@ -109,7 +107,7 @@ class GameOver extends Phaser.Scene{
         for(let i = 0; (145 * 3 - 1) * (i - 1) < this.width; i++){
             this.createRoadTexture((145 * 3 - 1) * i, this.height)
         }
-        this.time.addEvent({ delay: 1000, callback: () => { VELOCITY += 10; console.log(VELOCITY)}, repeat: -1 })
+        this.time.addEvent({ delay: 1000, callback: () => { if(VELOCITY < MAX_VELOCITY) VELOCITY += 10;}, repeat: -1 })
 
         this.rockTimer = new Timer({
             lapCondition: _timer => { return _timer > 8000 * INITIAL_VELOCITY / VELOCITY},
@@ -136,6 +134,13 @@ class GameOver extends Phaser.Scene{
         this.xe.y = this.height - 210
         this.xe.currentLane = 0; // 0 is bottom
         this.xe.setDepth(BASE_DEPTH + 2)
+        this.beam.y = this.height - 43
+    }
+    goUp(){
+        this.xe.y = this.height - 280
+        this.xe.currentLane = 1 // 1 is top
+        this.xe.setDepth(BASE_DEPTH)
+        this.beam.y = this.height - 113
     }
     createRock(){
         /** Generate a number between 0 and 1 */

@@ -1,9 +1,11 @@
-class StartScene extends Phaser.Scene{
+class Win extends Phaser.Scene{
     constructor(){
-        super('start')
+        super('win')
         
     }
-
+    init(data){
+        this.mssv = data.mssv;
+    }
     preload(){
         this.load.image("citynight", "assets/cityskylinelong.png")
         this.load.spritesheet('scooter', "assets/scooter_cropped_flipped.png", {
@@ -23,6 +25,7 @@ class StartScene extends Phaser.Scene{
         this.load.image("beam", "assets/beam3.png")
         this.load.image("restartButton", "assets/replay.png")
         this.load.image("homeButton", "assets/home.png")
+        this.load.image("laurel", "assets/laurel.png")
     }
 
     create(){
@@ -51,7 +54,7 @@ class StartScene extends Phaser.Scene{
             repeat: -1
         })
         this.xe.play("scooter_anim")
-            .setTint(0x5a4f75)
+            .setTint(0xffdfd9)
         this.physics.world.enableBody(this.xe)
         this.xe.body.width = 150
         this.xe.body.setOffset(120, 0)
@@ -63,9 +66,44 @@ class StartScene extends Phaser.Scene{
             .setDepth(10 + 2)
         if(window.lane == 0) this.goDown(); else this.goUp();
 
-        this.gameOverText = this.add.image(this.width / 2, this.height /2 - 50, 'gameOverText')
-        this.gameOverText.setScale(0.25)
+        this.laurel = this.add.image(this.width / 2, this.height /2 - 50, 'laurel')
+        this.laurel.setScale(0.8)
             .setDepth(10000)
+        let mssvText = this.add.text(this.width / 2, this.height /2 - 190, "Mã số sinh viên: " + this.mssv, { fontFamily: 'Determination' })
+        mssvText.setOrigin(0.5, 0)
+            .setColor(0x46354c)
+            .setFontSize(22)
+
+        this.replayButton = this.add.image(this.width / 2 - 60, this. height / 2 + 70, "restartButton")
+        this.replayButton.setScale(0.25)
+            .setDepth(999)
+            .setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
+                this.replayButton.setTint(0xdedede)
+            })
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
+                this.replayButton.setTint(0xffffff)
+            })
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.replayButton.setTint(0x8afbff)
+                this.scene.start('main game')
+            })
+
+        this.homeButton = this.add.image(this.width / 2 + 60, this. height / 2 + 70, "homeButton")
+        this.homeButton.setScale(0.25)
+            .setDepth(999)
+            .setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
+                this.homeButton.setTint(0xdedede)
+            })
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
+                this.homeButton.setTint(0xffffff)
+            })
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.homeButton.setTint(0x8afbff)
+                window.setHomeScene()
+            })
+
 
         /**
          * updateList
@@ -110,13 +148,14 @@ class StartScene extends Phaser.Scene{
         this.xe.currentLane = 1 // 1 is top
         this.xe.setDepth(BASE_DEPTH)
         this.beam.y = this.height - 113
+        window.lane = 1;
     }
     createRock(){
         /** Generate a number between 0 and 1 */
         const lane =  Math.floor(Math.random() * 2)
         let y = this.height - 30 - 60 * lane
         let rock = new Rock(this, this.width + 150, y, lane)
-        rock.setTint(0x5a4f75)
+        rock.setTint(0xffdfd9)
         /** Create over lap detector */
         const overlap = this.physics.add.overlap(this.xe, rock, (_xe, _rock) => {
             /** If collide on the same lane */
@@ -142,12 +181,12 @@ class StartScene extends Phaser.Scene{
             setTimeout(() => {obj.setTintFill(0xfdfdfd)}, 200)
             setTimeout(() => {obj.clearTint(false);}, 250)
 
-            setTimeout(() => {obj.setTint(0x5a4f75)}, 300)
+            setTimeout(() => {obj.setTint(0xffdfd9)}, 300)
         })
     }
     createRoadTexture(x = this.width + 50, y = this.height){
         const texture = new RoadTexture(this, x, y)
-        texture.setTint(0x1f294d)
+        texture.setTint(0xffdfd9)
         this.updateList.add(texture)
     }
     createBuilding(x = this.width + 150, y = this.height - 145){

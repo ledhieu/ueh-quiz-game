@@ -29,13 +29,13 @@ class TinhHuong extends Phaser.GameObjects.Sprite{
             },
             {
                 scale: 0.3,
-                y: this.gameHeight - 70,
-                passY: 510,
+                y: this.gameHeight - 50,
+                passY: this.gameHeight - 130,
                 depth: BASE_DEPTH + 1
             },
             {
                 scale: 0.5,
-                y: this.gameHeight - 70,
+                y: this.gameHeight,
                 depth: BASE_DEPTH + 3,
                 passDepth: BASE_DEPTH + 3
             },
@@ -43,7 +43,10 @@ class TinhHuong extends Phaser.GameObjects.Sprite{
                 scale: 0.5
             },
             {
-                scale: 0.5
+                scale: 0.3,
+                y: this.gameHeight - 50,
+                passY: this.gameHeight - 130,
+                depth: BASE_DEPTH + 1
             }
         ]
         this.config = this.configs[this.current - 1]
@@ -64,6 +67,7 @@ class TinhHuong extends Phaser.GameObjects.Sprite{
         if(this.x < (this.config.distance ?? 500)){
             if(!this.asked){
                 this.onQuestion()
+                console.log('tinh huong')
                 this.asked = true
             } else {
                 if(!this.changedToPass){

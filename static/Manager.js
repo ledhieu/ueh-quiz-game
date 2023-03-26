@@ -6,6 +6,9 @@ class Manager extends Phaser.Scene{
 
     }
     create(){
-        this.scene.start('start scene')
+        this.plugin = new Phaser.Scenes.ScenePlugin(this)
+        window.phaserPlugin = this.plugin //update the global phaserPlugin every scene
+        
+        window.phaserPlugin.start('start')
     }
 }

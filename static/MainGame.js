@@ -1,5 +1,6 @@
 const BASE_DEPTH = 10;
 const INITIAL_VELOCITY = 180
+const MAX_VELOCITY = 600
 let VELOCITY = INITIAL_VELOCITY;
 
 class MainGame extends Phaser.Scene{
@@ -28,25 +29,24 @@ class MainGame extends Phaser.Scene{
         this.load.image('buildings2', 'assets/buildings2.png')
         this.load.image("roadTexture", "assets/roadtexturelongseamless3.png")
         this.load.image("heart", "assets/heart.png")
-        for(let i = 1; i <= 5; i++){
+        for(let i = 1; i <= 7; i++){
             this.load.image(`TH${i}`, `assets/TH${i}.png`)
         }
-        for(let i = 1; i <= 5; i++){
+        for(let i = 1; i <= 7; i++){
             this.load.image(`TH${i}_pass`, `assets/TH${i}_pass.png`)
         }
         this.load.image("homeButton", "assets/home.png")
     }
 
     create(){
+        this.plugin = new Phaser.Scenes.ScenePlugin(this)
+        window.phaserPlugin = this.plugin //update the global phaserPlugin every scene
         /**
          * Instantiate variables
          */
         this.lives = 3;
         this.currentTinhHuong = 1;
         VELOCITY = INITIAL_VELOCITY // reset velocity
-
-        this.plugin = new Phaser.Scenes.ScenePlugin(this)
-        window.phaserPlugin = this.plugin
 
         let { width, height } = this.sys.game.canvas;
         this.width = width;
@@ -56,8 +56,8 @@ class MainGame extends Phaser.Scene{
             .setOrigin(0, 0)
             .setDisplaySize(this.width + 100, this.height)
             .setDepth(-100)
-        this.physics.world.enableBody(this.background)
-        this.background.body.velocity.x = -1
+        // this.physics.world.enableBody(this.background)
+        // this.background.body.velocity.x = -1
 
         /**
          * Add hearts
@@ -88,7 +88,7 @@ class MainGame extends Phaser.Scene{
         this.physics.world.enableBody(this.xe)
         this.xe.body.width = 150
         this.xe.body.setOffset(120, 0)
-        this.goDown();
+        if(window.lane == 0) this.goDown(); else this.goUp();
 
         
         /**
@@ -135,7 +135,8 @@ class MainGame extends Phaser.Scene{
                 })
                 .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                     this.homeButton.setTint(0x8afbff)
-                    this.scene.start('start scene')
+                    // this.scene.start('start')
+                    window.setHomeScene();
                 })
         /**
          * Create updateList
@@ -151,9 +152,9 @@ class MainGame extends Phaser.Scene{
         }
         this.createBuilding()
         this.createBackgroundBuilding()
-        this.createTinhHuong()
+        // this.createTinhHuong()
         
-        this.time.addEvent({ delay: 1000, callback: () => { VELOCITY += 10; console.log(VELOCITY)}, repeat: -1 })
+        this.time.addEvent({ delay: 1000, callback: () => { if(VELOCITY < MAX_VELOCITY) VELOCITY += 7; }, repeat: -1 })
         this.time.addEvent({ delay: 12000, callback: () => { this.createTinhHuong()}, repeat: -1 })
 
         this.rockTimer = new Timer({
@@ -186,11 +187,13 @@ class MainGame extends Phaser.Scene{
         this.xe.y = this.height - 280
         this.xe.currentLane = 1 // 1 is top
         this.xe.setDepth(BASE_DEPTH)
+        window.lane = 1;
     }
     goDown(){
         this.xe.y = this.height - 210
         this.xe.currentLane = 0; // 0 is bottom
         this.xe.setDepth(BASE_DEPTH + 2)
+        window.lane = 0;
     }
     createRock(){
         /** Generate a number between 0 and 1 */
@@ -213,7 +216,7 @@ class MainGame extends Phaser.Scene{
                     heart.destroy()
                     if(this.lives == 0){
                         // this.scene.sleep('main game')
-                        this.scene.start('game over')
+                        window.setGameOver()
                     }
                 }, 300)
             }
@@ -262,7 +265,7 @@ class MainGame extends Phaser.Scene{
         console.log(this)
         window.setCurrentQuestion(this.currentTinhHuong)
         this.currentTinhHuong += 1
-        this.plugin.pause(this)
+        this.scene.pause();
     }
     flicker(objects){
         objects.forEach(obj => {

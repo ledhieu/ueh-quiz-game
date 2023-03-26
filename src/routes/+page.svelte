@@ -3,23 +3,26 @@
     import questions from '$lib/questions.json'
     import { fly } from 'svelte/transition';
     import { init_binding_group_dynamic } from 'svelte/internal';
+    import Swal from 'sweetalert2'
 
-    let currentQuestion = 1;
+    let currentQuestion;
     let answersLeft = 2;
-    let active = false, nameFormActive = true;
+    let active = false, nameFormActive = true, theleActive = false;
     let answer;
     let timer, announcement;
+    let MSSV;
+    let score = 0;
 
     // $:question = questions[3][1]
-    $: question = questions[currentQuestion - 1][Math.floor(Math.random() * 5)]
+    $: question = currentQuestion ? questions[currentQuestion - 1][Math.floor(Math.random() * 5)] : {}
     onMount(() => {
-        console.log(questions)
+        // console.log(questions)
         const config = {
             type: Phaser.AUTO,
             width:  window.innerHeight < window.innerWidth ? window.innerWidth : 900,
             height: window.innerHeight < window.innerWidth ? window.innerHeight : 650,
             backgroundColor: 0xffe2da,
-            scene: [ Manager, GameOver, MainGame, StartScene, TheLeScene, QuestionScene ],
+            scene: [ Manager, Win, GameOver, MainGame, StartScene, TheLeScene, QuestionScene ],
             pixelArt: true,
             physics: {
                 default: 'arcade',
@@ -38,13 +41,46 @@
             answer = undefined
         }
         window.setGameOver = () => {
-            document.body.classList.add('gameover')
-            currentQuestion = 1
+            score = 0;
+            currentQuestion = undefined
             active = false
             answer = undefined
+            console.log('setting game over')
+            window.phaserPlugin.start('game over')
+            window.phaserPlugin.stop('main game')
+            console.log('set game over')
         }
         window.setNotGameOver = () => {
-            document.body.classList.remove('gameover')
+        }
+        window.setHomeScene = () => {
+            score = 0;
+            active = false;
+            nameFormActive = true;
+            currentQuestion = undefined
+            window.phaserPlugin.stop('main game')
+            window.phaserPlugin.start('start')
+            win = false;
+        }
+        window.lane = 0;
+        window.win = async () => {
+            score = 0;
+            win = true;
+            window.phaserPlugin.stop('main game')
+            window.phaserPlugin.start('win', { mssv: MSSV })
+            
+            console.log('sending from client')
+            fetch('/send', {
+                method: 'POST',
+                body: JSON.stringify({mssv: MSSV})
+            }).then(async result => {
+                console.log(await result.json())
+                Swal.fire({
+                title: 'Chúc mừng bạn',
+                text: 'Mã số sinh viên của bạn đã được ghi nhận. Cảm ơn vì bạn đã tham gia nhé!',
+                icon: 'success',
+                confirmButtonText: 'Quay lại'
+                })
+            })
         }
     })
 
@@ -55,8 +91,7 @@
         if(answer != question.answer){
             if(answersLeft == 0){
                 // end game
-                phaserPlugin.start('game over')
-                document.body.classList.add('gameover')
+                window.setGameOver()
                 return
             }
             setTimeout(() => {
@@ -64,6 +99,17 @@
                 answer = undefined
             }, 3000)
         } else {
+            score += 1;
+            if(score == 7){
+                setTimeout(() => {
+                    window.scrollTo({ top: 0, behavior: 'smooth'})
+                    active = false
+                    answer = undefined
+                    answersLeft = 2
+                    window.win();
+                }, 1000)
+                return;
+            }
             timer = 3;
             let timerInterval = setInterval(() => {
                 timer -= 1
@@ -79,12 +125,19 @@
                 answersLeft = 2
             }, 1000)
             setTimeout(() => {
-                phaserPlugin.resume()
+                window.phaserPlugin.resume('main game')
             }, 3000)
         }
         
     }
-
+    function handleMSSVInput(){
+        nameFormActive = false;
+        theleActive = true;
+    }
+    function startGame(){
+        theleActive = false;
+        window.phaserPlugin.start('main game')
+    }
 </script>
 
 <div id="container">
@@ -99,7 +152,8 @@
         {#if active}
         <div class:disabled={answer}
         in:fly={{ y: 100, duration: 1000, delay: 200 }}
-                    out:fly={{ y: -100, duration: 1000, delay: 200 }}
+        out:fly={{ y: -100, duration: 1000, delay: 200 }}
+        class="card"
         id="question-container">
             <div style="display: flex">
                 <div>
@@ -142,24 +196,44 @@
     {/key}
 
     {#if nameFormActive}
-    <form class:disabled={answer}
+    <div class:disabled={answer}
     in:fly={{ y: 100, duration: 1000, delay: 200 }}
-                out:fly={{ y: -100, duration: 1000, delay: 200 }}
+    out:fly={{ y: -100, duration: 1000, delay: 200 }}
+    class="card"
     id="form-container">
-        <h1 in:fly={{ y: 100, duration: 1000, delay: 200 }}
-        out:fly={{ y: -100, duration: 1000, delay: 200 }}>
-            Thông tin
-        </h1>
-        <p in:fly={{ y: 100, duration: 1000, delay: 400 }}
-        out:fly={{ y: -100, duration: 1000, delay: 400 }}>
-            Hãy điền mã số sinh viên của bạn vào đây để blablabla nhé
-        </p>
-            <input type="text" placeholder="MSSV">
-            <button type="button" style="margin:auto" on:click={
-                () => {nameFormActive = false}
-            }>Nhập</button>
-    </form>
+        <form>
+            <h1 in:fly={{ y: 100, duration: 1000, delay: 200 }}
+            out:fly={{ y: -100, duration: 1000, delay: 200 }}>
+                Thông tin
+            </h1>
+            <p in:fly={{ y: 100, duration: 1000, delay: 400 }}
+            out:fly={{ y: -100, duration: 1000, delay: 400 }}>
+                Hãy điền mã số sinh viên của bạn vào đây để blablabla nhé
+            </p>
+                <input type="text" placeholder="MSSV" bind:value={MSSV}>
+                <button type="button" style="margin-top:auto" on:click={handleMSSVInput}>Nhập</button>
+        </form>
+    </div>
     {/if}
+
+    {#if theleActive}
+        <div class:disabled={answer}
+        in:fly={{ y: 100, duration: 1000, delay: 200 }}
+        out:fly={{ y: -100, duration: 1000, delay: 200 }}
+        class="card"
+        id="thele-container">
+            <h1>THỂ LỆ</h1>
+            <p>1. Bạn hãy sử dụng các mũi tên để điều khiển xe di chuyển lên xuống tránh các chướng ngại vật. Mỗi lần chạm vào chướng ngại vật bạn sẽ <b>mất 1 tim</b>, mất 3 tim thì trò chơi sẽ kết thúc.
+            <br>2. Khi gặp tình huống, xe sẽ dừng lại, bạn phải trả lời đúng câu hỏi để xe có thể tiếp tục đi. Có tổng cộng 7 tình huống, tương ứng 7 câu hỏi.
+            <br>3. Hoàn thành các câu hỏi ở <b>7 tình huống</b>, bạn sẽ chiến thắng và được ghi nhận tham gia hoạt động.
+
+            <br><br><b>Lưu ý: Ở mỗi câu hỏi bạn chỉ có tối đa 2 lượt trả lời, nếu trả lời sai cả 2 lần bạn sẽ phải kết thúc trò chơi. Cố lên nhé!</b>
+            </p>
+            <button on:click={startGame}
+            style="margin-top: 20px">Bắt đầu</button>
+        </div>
+    {/if}
+
 </div>
 
 <style>
@@ -190,15 +264,22 @@
     :global(body.gameover *){
         color: white !important
     }
-    *{
-        font-family: Determination;
+    *, :global(.swal2-styled > *, .swal2-styled.swal2-confirm, #swal2-html-container, #swal2-title){
+        font-family: Determination !important;
         color: #46354c;
         /* letter-spacing: 3px; */
+    }
+    :global(.swal2-icon.swal2-success [class^=swal2-success-line]){
+        background-color:#86dcb4
+    }
+    :global(.swal2-icon.swal2-success .swal2-success-ring){
+        border: .25em solid rgb(134 220 195 / 30%)
     }
     p, h1, h2, h3, span{
         padding: 0;
         margin: 0
     }
+    
     :global(canvas){
         width: 100vw;
         z-index: 100;
@@ -207,7 +288,7 @@
         display: flex;
         flex-direction: column;
     }
-    button{
+    form > button{
         background: #46354c;
         color: #ffe2da;
         transition: 0.3s ease;
@@ -224,31 +305,32 @@
         width: 100%; 
         text-align: center;
     }
-    #question-container, #form-container{
+    #question-container, #form-container, #thele-container{
         padding: 20px;
         border-radius: 15px;
         background: white;
-        margin: 20px;
     }
-    #question-container p, #form-container p{
+    #question-container p, #form-container p, #thele-container p{
         font-size: 16px;
         line-height: 25px;
         margin-bottom: 20px;
     }
-    #question-container h1, #form-container h1{
+    #question-container h1, #form-container h1, #thele-container h1{
         margin-top: 10px;
         margin-bottom: 10px;
     }
     #question-container.disabled, #form-container.disabled{
         cursor: not-allowed
     }
-    #form-container{
+    #form-container form{
         display: flex;
-        flex-direction: column;;
+        flex-direction: column;
+        gap: 15px;
+        height: 100%;
     }
-    .choice-button, input, button{
+    .choice-button, input, button, :global(.swal2-styled.swal2-confirm){
         border-radius: 4px;
-        padding: 30px;
+        padding: 20px;
         width: 100%;
         margin-bottom: 20px;
         cursor: pointer;
@@ -258,7 +340,7 @@
         background: none;
         vertical-align: middle;
         border: 1px solid #46354c;
-        color: 1px solid #46354c;
+        color: #46354c;
         transition: 0.3s ease;
     }
     form{
@@ -293,8 +375,7 @@
             height: 100vh;
             width: auto;
         }
-        #question-container, #form-container{
-            padding-left: 40px;
+        .card{
             position: absolute;
             top: 0;
             left: 0;
@@ -305,9 +386,12 @@
             width: 30%;
             height: 90%;
             border-radius: 15px;
-        
+            padding: 40px
         }
-        .choice-button:hover, button{
+        #form-container, #thele-container{
+            height: min-content;
+        }
+        .choice-button:hover, form > button, #thele-container > button{
             background: #46354c;
             color: #ffe2da;
             transition: 0.3s ease;
