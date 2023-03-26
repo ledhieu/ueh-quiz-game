@@ -214,7 +214,7 @@ class MainGame extends Phaser.Scene{
                 setTimeout(() => {
                     _rock.destroy()
                     heart.destroy()
-                    if(this.lives == 0){
+                    if(this.lives <= 0){
                         // this.scene.sleep('main game')
                         window.setGameOver()
                     }
