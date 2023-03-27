@@ -7,7 +7,7 @@ class Win extends Phaser.Scene{
         this.mssv = data.mssv;
     }
     preload(){
-        this.load.image("citynight", "assets/cityskylinelong.png")
+        this.load.image("citywin", "assets/cityskylinelong.png")
         this.load.spritesheet('scooter', "assets/scooter_cropped_flipped.png", {
             frameWidth: 505,
             frameHeight: 399,
@@ -36,7 +36,7 @@ class Win extends Phaser.Scene{
         this.width = width;
         this.height = height;
 
-        this.background = this.add.image(0, 0, "citynight")
+        this.background = this.add.image(0, 0, "citywin")
             .setOrigin(0, 0)
             .setDisplaySize(this.width + 100, this.height)
             .setDepth(-100)
