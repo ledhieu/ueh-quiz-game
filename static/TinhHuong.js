@@ -29,9 +29,10 @@ class TinhHuong extends Phaser.GameObjects.Sprite{
             },
             {
                 scale: 0.3,
-                y: this.gameHeight - 50,
+                y: this.gameHeight - 80,
                 passY: this.gameHeight - 130,
-                depth: BASE_DEPTH + 1
+                depth: BASE_DEPTH,
+                passDepth: BASE_DEPTH - 1
             },
             {
                 scale: 0.5,

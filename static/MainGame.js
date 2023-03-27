@@ -1,6 +1,7 @@
 const BASE_DEPTH = 10;
 const INITIAL_VELOCITY = 180
 const MAX_VELOCITY = 600
+const ACCELERATION = 6;
 let VELOCITY = INITIAL_VELOCITY;
 
 class MainGame extends Phaser.Scene{
@@ -23,7 +24,7 @@ class MainGame extends Phaser.Scene{
         for(let i = 1; i <= 7; i++){
             this.load.image(`rock${i}`, `assets/rock${i}.png`)
         }
-        for(let i = 1; i <= 6; i++){
+        for(let i = 1; i <= 4; i++){
             this.load.image(`building${i}`, `assets/building${i}.png`)
         }
         this.load.image('buildings2', 'assets/buildings2.png')
@@ -123,6 +124,19 @@ class MainGame extends Phaser.Scene{
                 this.down.setTint(0x8afbff)
                 this.goDown()
             })
+        this.input.keyboard.addCapture('UP, DOWN, W, S, LEFT, RIGHT')
+        this.input.keyboard.on('keydown-UP', event => {
+            this.goUp()
+        }, this)
+        this.input.keyboard.on('keydown-DOWN', event => {
+            this.goDown()
+        }, this)
+        this.input.keyboard.on('keydown-W', event => {
+            this.goUp()
+        }, this)
+        this.input.keyboard.on('keydown-S', event => {
+            this.goDown()
+        }, this)
         this.homeButton = this.add.image(60, 60, "homeButton")
         this.homeButton.setScale(0.15)
                 .setDepth(999)
@@ -154,11 +168,14 @@ class MainGame extends Phaser.Scene{
         this.createBackgroundBuilding()
         // this.createTinhHuong()
         
-        this.time.addEvent({ delay: 1000, callback: () => { if(VELOCITY < MAX_VELOCITY) VELOCITY += 7; }, repeat: -1 })
+        this.time.addEvent({ delay: 1000, callback: () => { 
+            if(VELOCITY < MAX_VELOCITY) 
+                VELOCITY += this.width > 900 ? ACCELERATION + 3 : ACCELERATION; 
+        }, repeat: -1 })
         this.time.addEvent({ delay: 12000, callback: () => { this.createTinhHuong()}, repeat: -1 })
 
         this.rockTimer = new Timer({
-            lapCondition: _timer => { return _timer > 2500 * INITIAL_VELOCITY / VELOCITY},
+            lapCondition: _timer => { return _timer > 3000 * INITIAL_VELOCITY / VELOCITY},
             callback: () => {this.createRock()}
         })
 
@@ -236,7 +253,7 @@ class MainGame extends Phaser.Scene{
         const randomCostume = Math.floor(Math.random() * 5) + 1
         const building = new Building(this, x, y, {
             costume: randomCostume,
-            scale: 0.4,
+            scale: 0.45,
             speedPercentage: 0.97,
             depth: 0,
             tint: 0xffd6dc

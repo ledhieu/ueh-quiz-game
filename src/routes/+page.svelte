@@ -5,16 +5,24 @@
     import { init_binding_group_dynamic } from 'svelte/internal';
     import Swal from 'sweetalert2'
 
-    let currentQuestion;
+    let currentQuestionNum, usedQuestion, question;
     let answersLeft = 2;
     let active = false, nameFormActive = true, theleActive = false;
     let answer;
     let timer, announcement;
     let MSSV;
     let score = 0;
+    let musicShow = false;
 
     // $:question = questions[3][1]
-    $: question = currentQuestion ? questions[currentQuestion - 1][Math.floor(Math.random() * 5)] : {}
+    $: {
+        let random;
+        while(random == undefined || random == usedQuestion){
+            random  = Math.floor(Math.random() * 5)
+            question = currentQuestionNum ? questions[currentQuestionNum - 1][random] : {}
+        }
+        usedQuestion = random;
+    }
     onMount(() => {
         // console.log(questions)
         const config = {
@@ -36,13 +44,13 @@
         console.log(game)
         window.setCurrentQuestion = num => {
             active = true
-            currentQuestion = 10000
-            currentQuestion = num
+            currentQuestionNum = 10000
+            currentQuestionNum = num
             answer = undefined
         }
         window.setGameOver = () => {
             score = 0;
-            currentQuestion = undefined
+            currentQuestionNum = undefined
             active = false
             answer = undefined
             console.log('setting game over')
@@ -57,7 +65,7 @@
             score = 0;
             active = false;
             nameFormActive = true;
-            currentQuestion = undefined
+            currentQuestionNum = undefined
             window.phaserPlugin.stop('main game')
             window.phaserPlugin.start('start')
             win = false;
@@ -96,7 +104,7 @@
                 return
             }
             setTimeout(() => {
-                window.setCurrentQuestion(currentQuestion)
+                window.setCurrentQuestion(currentQuestionNum)
                 answer = undefined
             }, 3000)
         } else {
@@ -134,14 +142,25 @@
     function handleMSSVInput(){
         nameFormActive = false;
         theleActive = true;
+        const music = document.getElementById('music')
+        music.play();
+        musicShow = true;
+        setTimeout(() => {
+            musicShow = false;
+        }, 3000)
     }
     function startGame(){
         theleActive = false;
         window.phaserPlugin.start('main game')
     }
 </script>
+<audio id="music" controls autoplay style="" class:show={musicShow}>
+    <source src="/assets/lofi.ogg" type="audio/ogg"/>
+    <source src="/assets/lofi.mp3" type="audio/mpeg"/>
+    Your browser does not support the audio element
+</audio>
 <div style="position:fixed; bottom: 20px; right: 20px; z-index: 20; font-size: 13px">
-    Created by <a href="https://ldhieu.vercel.app" target="_blank">Lê Đức Hiếu</a>
+    By KQM & <a href="https://ldhieu.vercel.app" target="_blank">Lê Đức Hiếu</a>
 </div>
 <div id="container">
     <div id="game-container">
@@ -151,7 +170,7 @@
             </div>
         {/if}
     </div>
-    {#key currentQuestion}
+    {#key currentQuestionNum}
         {#if active}
         <div class:disabled={answer}
         in:fly={{ y: 100, duration: 1000, delay: 200 }}
@@ -162,7 +181,7 @@
                 <div>
                     <h1 in:fly={{ y: 100, duration: 1000, delay: 200 }}
                     out:fly={{ y: -100, duration: 1000, delay: 200 }}>
-                        Câu hỏi {@html currentQuestion}
+                        Câu hỏi {@html currentQuestionNum}
                     </h1>
                     <p in:fly={{ y: 100, duration: 1000, delay: 400 }}
                     out:fly={{ y: -100, duration: 1000, delay: 400 }}>
@@ -211,7 +230,7 @@
             </h1>
             <p in:fly={{ y: 100, duration: 1000, delay: 400 }}
             out:fly={{ y: -100, duration: 1000, delay: 400 }}>
-                Hãy điền mã số sinh viên của bạn vào đây để blablabla nhé
+                Hãy điền mã số sinh viên của bạn vào đây để bắt đầu trò chơi nhé
             </p>
                 <input type="text" placeholder="MSSV" bind:value={MSSV}>
                 <button type="button" style="margin-top:auto" on:click={handleMSSVInput}>Nhập</button>
@@ -226,9 +245,10 @@
         class="card"
         id="thele-container">
             <h1>THỂ LỆ</h1>
-            <p>1. Bạn hãy sử dụng các mũi tên để điều khiển xe di chuyển lên xuống tránh các chướng ngại vật. Mỗi lần chạm vào chướng ngại vật bạn sẽ <b>mất 1 tim</b>, mất 3 tim thì trò chơi sẽ kết thúc.
-            <br>2. Khi gặp tình huống, xe sẽ dừng lại, bạn phải trả lời đúng câu hỏi để xe có thể tiếp tục đi. Có tổng cộng 7 tình huống, tương ứng 7 câu hỏi.
-            <br>3. Hoàn thành các câu hỏi ở <b>7 tình huống</b>, bạn sẽ chiến thắng và được ghi nhận tham gia hoạt động.
+            <p>1. Bạn hãy sử dụng các mũi tên hoặc phím <kbd>W</kbd> và <kbd>A</kbd> hoặc phím <kbd>↑</kbd> và <kbd>↓</kbd> để điều khiển xe di chuyển lên xuống tránh các chướng ngại vật. 
+            <br><br>2. Mỗi lần chạm vào chướng ngại vật bạn sẽ <b>mất 1 tim</b>, mất 3 tim thì trò chơi sẽ kết thúc.
+            <br><br>3. Khi gặp tình huống, xe sẽ dừng lại, bạn phải trả lời đúng câu hỏi để xe có thể tiếp tục đi. Có tổng cộng 7 tình huống, tương ứng 7 câu hỏi.
+            <br><br>4. Hoàn thành các câu hỏi ở <b>7 tình huống</b>, bạn sẽ chiến thắng và được ghi nhận tham gia hoạt động.
 
             <br><br><b>Lưu ý: Ở mỗi câu hỏi bạn chỉ có tối đa 2 lượt trả lời, nếu trả lời sai cả 2 lần bạn sẽ phải kết thúc trò chơi. Cố lên nhé!</b>
             </p>
@@ -370,7 +390,35 @@
         pointer-events: none;
         cursor: not-allowed;
     }
+    kbd {
     
+    --kbd-color-background: white;
+   
+    --kbd-color-border:    #999999;
+    --kbd-color-text:      #46354c ;
+    background-color: var(--kbd-color-background);
+    border-radius: 0.25rem;
+    border: 1px solid var(--kbd-color-border);
+    box-shadow: 0 2px 0 1px var(--kbd-color-border);
+    cursor: default;
+    font-family: var(--font-family-sans-serif);
+    font-size: 0.75em;
+    line-height: 1;
+    min-width: 0.75rem;
+    text-align: center;
+    position: relative;
+    top: -1px;
+    padding: 3px 10px 3px 10px;
+    vertical-align: middle;
+    }
+    kbd:hover {
+        box-shadow: 0 1px 0 0.5px var(--kbd-color-border);
+        top: 1px;
+    }
+    #music{
+        position: fixed; bottom: 30px; left: 0; right: 0; margin: auto; z-index: 100; 
+
+    }
     @media only screen and (min-width: 1000px){
         #container{
             /* display: flex; */
@@ -402,6 +450,13 @@
             background: #46354c;
             color: #ffe2da;
             transition: 0.3s ease;
+        }
+        #music{
+            opacity: 0.05; transition: 0.2s ease
+        }
+        #music:hover, #music.show{
+            opacity: 0.7;
+            transition: 0.2s ease;
         }
     }
 </style>
