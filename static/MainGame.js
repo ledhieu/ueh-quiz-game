@@ -250,7 +250,7 @@ class MainGame extends Phaser.Scene{
         this.updateList.add(texture)
     }
     createBuilding(x = this.width + VELOCITY, y = this.height - 145){
-        const randomCostume = Math.floor(Math.random() * 5) + 1
+        const randomCostume = Math.floor(Math.random() * 4) + 1
         const building = new Building(this, x, y, {
             costume: randomCostume,
             scale: 0.45,
