@@ -76,11 +76,11 @@
         },
         {
             "num": "2.4",
-            "question": "Nếu rẽ phải, bạn có nhất thiết phải bật xin nhan phải không?",
+            "question": "Nếu rẽ phải, bạn có nhất thiết phải bật xi nhan phải không?",
             "A": "Có vì chỉ cần chuyển hướng chạy thì đều phải bật xi nhan ",
             "B": "Không cần thiết",
             "C": "Chỉ bật nếu rẽ phải khi đèn đỏ",
-            "D": "Tất cả đều đúng",
+            "D": "Rẽ phải thì chỉ cần bật xi nhan trái",
             "answer": "A"
         },
         {
