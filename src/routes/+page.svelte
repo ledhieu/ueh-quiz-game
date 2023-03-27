@@ -199,15 +199,17 @@
             </div>
             
             {#each ['A', 'B', 'C', 'D'] as choice, i}
-            <button on:click={() => {handleClick(choice)}} 
-                class="choice-button"
-                class:disabled={answer}
-                class:wrong={choice != question.answer && answer == choice}
-                class:correct={choice == question.answer && answer}
-                in:fly={{ y: 100, duration: 1000, delay: 600 + 200 * i }}
-                out:fly={{ y: -100, duration: 1000, delay: 600 + 200 * i }}>
-                {choice}. {question[choice]}
-            </button>
+                {#if question[choice]}
+                <button on:click={() => {handleClick(choice)}} 
+                    class="choice-button"
+                    class:disabled={answer}
+                    class:wrong={choice != question.answer && answer == choice}
+                    class:correct={choice == question.answer && answer}
+                    in:fly={{ y: 100, duration: 1000, delay: 600 + 200 * i }}
+                    out:fly={{ y: -100, duration: 1000, delay: 600 + 200 * i }}>
+                    {choice}. {question[choice]}
+                </button>
+                {/if}
             {/each}
             <p in:fly={{ y: 100, duration: 1000, delay: 1400 }}
                 out:fly={{ y: -100, duration: 1000, delay: 1400 }}>

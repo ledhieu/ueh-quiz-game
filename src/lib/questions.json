@@ -1,14 +1,15 @@
 [
     [
         {
-            "question": "Điều khiển xe môtô, xe gắn máy chạy dàn hàng ngang từ 3 (ba) xe trở lên thì bị phạt bao nhiêu tiền?",
-            "A": "Phạt từ 60.000 đồng đến 80.000 đồng",
-            "B": "Phạt từ 70.000 đồng đến 90.000 đồng",
-            "C": "Phạt từ 100.000 đồng đến 200.000 đồng",
-            "D": "Phạt từ  100 .000 đồng đến  120.000 đồng",
+            "num": "1.1",
+            "question": "Khi đến đoạn đường giao nhau, có tín hiệu đèn, bạn cần làm gì?",
+            "A": "Chỉ cần không có xe thì chạy tiếp",
+            "B": "Thấy đèn vàng hiện lên thì tăng tốc chạy qua",
+            "C": "Quan sát tín hiệu đèn, đèn xanh bật mới được đi tiếp",
             "answer": "C"
         },
         {
+            "num": "1.2",
             "question": "Biển báo hiệu giao thông đường bộ có mấy nhóm?",
             "A": "4 nhóm",
             "B": "5 nhóm",
@@ -17,6 +18,7 @@
             "answer": "B"
         },
         {
+            "num": "1.3",
             "question": "Biển báo sau đây có ý nghĩa:",
             "A": "Hết hạn chế tốc độ tối đa",
             "B": "Tốc độ tối đa cho phép là 50 km/h",
@@ -26,6 +28,7 @@
             "image": "/assets/1.3.jpg"
         },
         {
+            "num": "1.4",
             "question": "Các phương tiện khi tham gia giao thông có được đi vào vạch đứt nét giới hạn làn đường ưu tiên hay không?",
             "A": "Được phép chạy thỏa thích",
             "B": "Chỉ có các phương tiện ưu tiên mới được phép",
@@ -34,6 +37,7 @@
             "answer": "D"
         },
         {
+            "num": "1.5",
             "question": "Khi đi theo vòng xuyến, người điều khiển phương tiện phải nhường đường như thế nào?",
             "A": "Không phải nhường đường",
             "B": "Phải nhường đường cho xe đi bên trái",
@@ -44,6 +48,7 @@
     ],
     [
         {
+            "num": "2.1",
             "question": "Khi gặp vạch chữ V (vạch xương cá), bạn có được phép lấn vạch hoặc chạy qua vạch không?",
             "A": "Được phép lấn vạch chữ V",
             "B": "Được phép chạy qua vạch chữ V",
@@ -52,6 +57,7 @@
             "answer": "C"
         },
         {
+            "num": "2.2",
             "question": "Hành vi nào sau đây phải chịu mức phạt từ 300.000 đồng đến 600.000 đồng vì đi xe máy chở quá số người quy định?",
             "A": "Chở người bệnh đi cấp cứu",
             "B": "Tất cả đáp án đều sai ",
@@ -60,6 +66,7 @@
             "answer": "B"
         },
         {
+            "num": "2.3",
             "question": "Khi tín hiệu đèn giao thông chuyển sang màu vàng, bạn sẽ:",
             "A": "Phóng ga thật nhanh để không bị kẹt đèn đỏ",
             "B": "Chạy chậm hơn nhưng không dừng lại",
@@ -68,14 +75,16 @@
             "answer": "C"
         },
         {
-            "question": "Nếu bạn rẽ phải nhưng bật xi nhan trái, bạn có thể phải nhận mức phạt bao nhiêu?",
-            "A": "400.000 đồng - 600.000 đồng",
-            "B": "300.000 đồng - 500.000 đồng",
-            "C": "500.000 - 700.000 đồng",
-            "D": "200.000 đồng - 600.000 đồng",
+            "num": "2.4",
+            "question": "Nếu rẽ phải, bạn có nhất thiết phải bật xin nhan phải không?",
+            "A": "Có vì chỉ cần chuyển hướng chạy thì đều phải bật xi nhan ",
+            "B": "Không cần thiết",
+            "C": "Chỉ bật nếu rẽ phải khi đèn đỏ",
+            "D": "Tất cả đều đúng",
             "answer": "A"
         },
         {
+            "num": "2.5",
             "question": "Người điều khiển xe máy không được thực hiện các hành vi nào sau đây?",
             "A": " Đi xe dàn hàng ngang, đi vào phần đường dành cho người đi bộ và phương tiện khác",
             "B": "Vừa chạy xe vừa đeo tai nghe",
@@ -86,6 +95,7 @@
     ],
     [
         {
+            "num": "3.1",
             "question": "Khi bắt đầu đi vào vòng xuyến, bạn cần bật đèn xi nhan bên nào?",
             "A": "Bên trái",
             "B": "Bên phải",
@@ -94,14 +104,16 @@
             "answer": "A"
         },
         {
-            "question": "Điều khiển xe môtô, xe gắn máy không đội mũ bảo hiểm hoặc đội mũ nhưng không cài quai đúng quy cách khi tham gia giao thông trên đường bộ thì bị phạt bao nhiêu tiền?",
-            "A": " Phạt từ 100.000 đồng đến 200.000 đồng",
-            "B": "Phạt từ 150.000 đồng đến 200.000 đồng",
-            "C": "Phạt từ 200.000 đồng đến 250.000 đồng",
-            "D": "Phạt từ 200.000 đồng đến 300.000 đồng",
+            "num": "3.2",
+            "question": "Trên đường giao thông, khi hiệu lệnh của người điều khiển giao thông trái với hiệu lệnh của đèn hoặc biển báo thì người tham gia giao thông phải chấp hành theo hiệu lệnh nào?",
+            "A": "Hiệu lệnh của người điều khiển giao thông",
+            "B": "Hiệu lệnh của đèn",
+            "C": "Hiệu lệnh của biển báo",
+            "D": "Tuỳ trường hợp",
             "answer": "A"
         },
         {
+            "num": "3.3",
             "question": "Khái niệm \"đường bộ\" được hiểu như thế nào là đúng ?",
             "A": "\"Đường bộ\" gồm: đường, cầu đường bộ, hầm đường bộ",
             "B": "\"Đường bộ\" gồm: đường, cầu đường bộ, hầm đường bộ, bến phà đường bộ",
@@ -110,6 +122,7 @@
             "answer": "B"
         },
         {
+            "num": "3.4",
             "question": "\"Người tham gia giao thông đường bộ\" gồm những thành phần nào?",
             "A": "Người điều khiển, người sử dụng phương tiện tham gia giao thông đường bộ",
             "B": "Người điều khiển, dẫn dắt súc vật",
@@ -118,6 +131,7 @@
             "answer": "D"
         },
         {
+            "num": "3.5",
             "question": "Nếu đi vào đô thị, bạn không được bật còi vào thời gian nào?",
             "A": "23h - 6h sáng hôm sau",
             "B": "22h - 6h sáng hôm sau",
@@ -128,6 +142,7 @@
     ],
     [
         {
+            "num": "4.1",
             "question": "Người điều khiển phương tiện giao thông không uống rượu, bia trong trường hợp nào dưới đây?",
             "A": "Trước và trong khi tham gia giao thông",
             "B": "Khi tham gia giao thông",
@@ -136,6 +151,7 @@
             "answer": "A"
         },
         {
+            "num": "4.2",
             "question": "Đây là biển báo gì?",
             "A": "Cấm dừng xe",
             "B": "Cấm đi ngược chiều",
@@ -145,6 +161,7 @@
             "image": "/assets/3.2.png"
         },
         {
+            "num": "4.3",
             "question": "Đâu là nhận định đúng về hai vạch kẻ đường màu vàng song song?",
             "A": "Xe được phép cắt qua để sử dụng làn ngược chiều từ cả hai phía",
             "B": "Dùng để xác định ranh giới làn đường có thể thay đổi hướng xe chạy",
@@ -153,6 +170,7 @@
             "answer": "D"
         },
         {
+            "num": "4.4",
             "question": "Vượt đèn đỏ hoặc đèn vàng khi sắp chuyển sang đèn đỏ sẽ bị phạt bao nhiêu?",
             "A": "200.000 đồng - 400.000đ",
             "B": "600.000 đồng - 1.000.000 đồng",
@@ -161,6 +179,7 @@
             "answer": "B"
         },
         {
+            "num": "4.5",
             "question": "Đây là biển báo gì?",
             "A": "Cấm đỗ xe",
             "B": "Cấm đỗ xe ngày lẻ",
@@ -172,6 +191,7 @@
     ],
     [
         {
+            "num": "5.1",
             "question": "Các phương tiện khi tham gia giao thông có được đi vào vạch nét liền giới hạn làn đường ưu tiên hay không?",
             "A": "Được phép chạy thỏa thích",
             "B": "Chỉ có các phương tiện ưu tiên mới được phép",
@@ -180,6 +200,7 @@
             "answer": "D"
         },
         {
+            "num": "5.2",
             "question": "Theo quy định về gương chiếu hậu xe máy, trường hợp nào sau đây vi phạm sẽ bị xử phạt?",
             "A": "Xe mô tô lắp thiếu gương phải",
             "B": "Xe mô tô lắp thiếu gương trái",
@@ -188,6 +209,7 @@
             "answer": "B"
         },
         {
+            "num": "5.3",
             "question": "Xe cứu thương đang chở bệnh nhân nhưng người phía trước không nhường đường làm cho bạn cũng không thể nào nhường đường được, bạn sẽ",
             "A": "Mặc kệ, không quan tâm, xe sẽ tìm đường khác mà đi",
             "B": "Không biết làm gì vì bản thân cũng bị mắc kẹt, không nhường đường được",
@@ -196,6 +218,7 @@
             "answer": "C"
         },
         {
+            "num": "5.4",
             "question": "Trên đường bộ trong khu vực đông dân cư xe môtô hai bánh, ba bánh, xe máy được lưu thông với tốc độ tối đa là bao nhiêu km/h?",
             "A": "30 km/h",
             "B": "40 km/h",
@@ -204,6 +227,7 @@
             "answer": "B"
         },
         {
+            "num": "5.5",
             "question": "Tại các điểm giao cắt giữa đường bộ và đường sắt, quyền ưu tiên thuộc về loại phương tiện nào dưới đây?",
             "A": "Xe cứu hỏa",
             "B": "Xe cứu thương",
@@ -214,6 +238,7 @@
     ],
     [
         {
+            "num": "6.1",
             "question": "Bạn đang trễ một cuộc họp mặt quan trọng nhưng đường thì đang kẹt xe, bạn sẽ?",
             "A": "Bóp còi cho người phía trước tăng tốc độ di chuyển",
             "B": "Leo lên trên vỉa hè chạy cho nhanh, không thể để lỡ mất cuộc họp quan trọng",
@@ -222,6 +247,7 @@
             "answer": "D"
         },
         {
+            "num": "6.2",
             "question": "Khi đi xe trên 50 phân khối, bạn bắt buộc phải mang theo giấy tờ gì?",
             "A": "Giấy phép lái xe",
             "B": "Tất cả những giấy tờ trên",
@@ -230,6 +256,7 @@
             "answer": "B"
         },
         {
+            "num": "6.3",
             "question": "Khi gặp biển báo này, bạn nên:",
             "A": "Chú ý quan sát đoạn đường phía trước vì dễ xảy ra tai nạn",
             "B": "Giữ khoảng cách an toàn với xe trước",
@@ -239,6 +266,7 @@
             "image": "/assets/6.4.png"
         },
         {
+            "num": "6.4",
             "question": "Đâu là nguyên tắc bật đèn xi nhan khi đi ra vòng xuyến?",
             "A": "Khi ra khỏi vòng xuyến thì xi nhan phải",
             "B": "Không cần bật xi nhan",
@@ -247,6 +275,7 @@
             "answer": "A"
         },
         {
+            "num": "6.5",
             "question": "Nếu bạn đang đi trên đường, bỗng có một người muốn qua đường và họ đang đi trên vạch kẻ đường dành cho người đi bộ, bạn sẽ làm gì?",
             "A": "Dừng trước vạch kẻ nhường họ qua đường",
             "B": "Tăng tốc, lách qua chỗ khác rồi chạy",
@@ -257,6 +286,7 @@
     ],
     [
         {
+            "num": "7.1",
             "question": "Hãy sắp xếp thứ tự của các xe ưu tiên sau đây: xe cứu thương, xe quân sự, xe cứu hỏa, xe công an",
             "A": "xe cứu thương -> xe cứu hỏa -> xe công an -> xe quân sự",
             "B": "xe quân sự -> xe cứu hỏa -> xe cứu thương -> xe công an",
@@ -265,6 +295,7 @@
             "answer": "C"
         },
         {
+            "num": "7.2",
             "question": "Bạn đang đi trên đường và đèn vàng còn 2s, nếu như gặp đèn đỏ bạn phải chờ hơn 70s, bạn quyết định sẽ",
             "A": "Vượt đèn vàng, thời gian quan trọng hơn hết",
             "B": "Dừng chờ đèn chuyển sang đèn đỏ rồi xanh mới di chuyển, tính mạng là quan trọng hơn hết",
@@ -273,6 +304,7 @@
             "answer": "B"
         },
         {
+            "num": "7.3",
             "question": "Khi đèn đỏ xe máy có được phép rẽ phải không?",
             "A": "Luôn luôn được rẽ phải",
             "B": "Hoàn toàn không được, đó giờ là do mọi người lách luật thôi",
@@ -281,6 +313,7 @@
             "answer": "D"
         },
         {
+            "num": "7.4",
             "question": "Người điều khiển xe gắn máy có được phép sử dụng xe để kéo hoặc đẩy các phương tiện khác khi tham gia giao thông không?",
             "A": "Không được phép",
             "B": "Được phép",
@@ -289,12 +322,13 @@
             "answer": "A"
         },
         {
-            "question": "Sử dụng điện thoại, tai nghe khi điều khiển phương tiện lưu thông trên đường sẽ bị phạt:",
-            "A": "600.000 đồng - 1.000.000 đồng",
-            "B": "700.000 đồng - 1.000.000 đồng",
-            "C": "800.000 đồng - 1.200.000 đồng",
-            "D": "900.000 đồng - 1.200.000 đồng",
-            "answer": "A"
+            "num": "7.5",
+            "question": "Người tham gia giao thông phải đi như thế nào là đúng quy tắc?",
+            "A": "Đi bên phải theo chiều đi của mình",
+            "B": "Đi đúng phần đường, làn đường quy định",
+            "C": "Tuân thủ theo hệ thống biển báo",
+            "D": "Tất cả các ý trên",
+            "answer": "D"
         }
     ]
 ]
