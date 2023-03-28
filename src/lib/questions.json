@@ -171,11 +171,11 @@
         },
         {
             "num": "4.4",
-            "question": "Vượt đèn đỏ hoặc đèn vàng khi sắp chuyển sang đèn đỏ sẽ bị phạt bao nhiêu?",
-            "A": "200.000 đồng - 400.000đ",
-            "B": "600.000 đồng - 1.000.000 đồng",
-            "C": "400.000 đồng - 1.000.000 đồng",
-            "D": "600.000 đồng - 800.000 đồng",
+            "question": "Nếu đang lưu thông trên đường bạn nghe thấy tiếng còi hụ của xe cứu thương, bạn cần phải làm gì?",
+            "A": "Tăng tốc chạy thật nhanh",
+            "B": "Chạy chậm lại, quan sát qua gương chiếu hậu xem hướng di chuyển của xe để tránh đường cho xe đi qua",
+            "C": "Chạy chậm lại, khi xe đến gần thì tăng tốc chạy trước đầu xe",
+            "D": "Mặc kệ xe muốn đi sao thì đi",
             "answer": "B"
         },
         {

@@ -87,9 +87,13 @@
                 title: 'Chúc mừng bạn',
                 text: 'Mã số sinh viên của bạn đã được ghi nhận. Cảm ơn vì bạn đã tham gia nhé!',
                 icon: 'success',
-                confirmButtonText: 'Quay lại'
+                timer: 2000,
+                confirmButtonText: "Đóng"
                 })
             })
+        }
+        window.getScore = () => {
+            return score;
         }
     })
 
@@ -109,7 +113,7 @@
             }, 3000)
         } else {
             score += 1;
-            if(score == 7){
+            if(score >= 7){
                 setTimeout(() => {
                     window.scrollTo({ top: 0, behavior: 'smooth'})
                     active = false
@@ -143,6 +147,7 @@
         nameFormActive = false;
         theleActive = true;
         const music = document.getElementById('music')
+        music.volume = 0.15
         music.play();
         musicShow = true;
         setTimeout(() => {
@@ -155,8 +160,8 @@
     }
 </script>
 <audio id="music" controls autoplay style="" class:show={musicShow}>
-    <source src="/assets/lofi.ogg" type="audio/ogg"/>
-    <source src="/assets/lofi.mp3" type="audio/mpeg"/>
+    <source src="/assets/music.ogg" type="audio/ogg"/>
+    <source src="/assets/music.mp3" type="audio/mpeg"/>
     Your browser does not support the audio element
 </audio>
 <div style="position:fixed; bottom: 20px; right: 20px; z-index: 20; font-size: 13px">

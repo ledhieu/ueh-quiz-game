@@ -19,7 +19,7 @@ class StartScene extends Phaser.Scene{
         }
         this.load.image('buildings2', 'assets/buildings2.png')
         this.load.image("roadTexture", "assets/roadtexturelongseamless3.png")
-        this.load.image("gameOverText", "assets/gameovertext2.png")
+        this.load.image("startText", "assets/startlogo_export.png")
         this.load.image("beam", "assets/beam3.png")
         this.load.image("restartButton", "assets/replay.png")
         this.load.image("homeButton", "assets/home.png")
@@ -63,8 +63,8 @@ class StartScene extends Phaser.Scene{
             .setDepth(10 + 2)
         if(window.lane == 0) this.goDown(); else this.goUp();
 
-        this.gameOverText = this.add.image(this.width / 2, this.height /2 - 50, 'gameOverText')
-        this.gameOverText.setScale(0.25)
+        this.startText = this.add.image(this.width / 2, this.height /2 - 50, 'startText')
+        this.startText.setScale(0.6)
             .setDepth(10000)
 
         /**

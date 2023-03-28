@@ -175,7 +175,11 @@ class MainGame extends Phaser.Scene{
         this.time.addEvent({ delay: 12000, callback: () => { this.createTinhHuong()}, repeat: -1 })
 
         this.rockTimer = new Timer({
-            lapCondition: _timer => { return _timer > 3200 * INITIAL_VELOCITY / VELOCITY},
+            lapCondition: _timer => {
+                if(window.getScore() < 5)
+                    return _timer > 3200 * INITIAL_VELOCITY / VELOCITY
+                return _timer > 4500 * INITIAL_VELOCITY / VELOCITY
+            },
             callback: () => {this.createRock()}
         })
 
