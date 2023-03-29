@@ -68,7 +68,6 @@
             currentQuestionNum = undefined
             window.phaserPlugin.stop('main game')
             window.phaserPlugin.start('start')
-            win = false;
         }
         window.lane = 0;
         window.win = async () => {
