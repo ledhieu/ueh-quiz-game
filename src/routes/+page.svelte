@@ -73,7 +73,6 @@
         window.lane = 0;
         window.win = async () => {
             score = 0;
-            win = true;
             window.phaserPlugin.stop('main game')
             window.phaserPlugin.start('win', { mssv: MSSV })
             
