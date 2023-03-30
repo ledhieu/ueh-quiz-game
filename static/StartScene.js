@@ -19,7 +19,7 @@ class StartScene extends Phaser.Scene{
         }
         this.load.image('buildings2', 'assets/buildings2.png')
         this.load.image("roadTexture", "assets/roadtexturelongseamless3.png")
-        this.load.image("startText", "assets/startlogo_export.png")
+        this.load.image("startText", "assets/startlogo.png")
         this.load.image("beam", "assets/beam3.png")
         this.load.image("restartButton", "assets/replay.png")
         this.load.image("homeButton", "assets/home.png")
