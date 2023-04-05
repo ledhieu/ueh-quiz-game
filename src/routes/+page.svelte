@@ -80,7 +80,18 @@
                 method: 'POST',
                 body: JSON.stringify({mssv: MSSV})
             }).then(async result => {
-                console.log(await result.json())
+                const res = await result.json()
+                console.log(res)
+                if(res.status != 200){
+                    Swal.fire({
+                    title: 'Đã xảy ra lối',
+                    text: res.message,
+                    icon: 'error',
+                    confirmButtonText: "Đóng"
+                    })
+                    return
+                }
+
                 Swal.fire({
                 title: 'Chúc mừng bạn',
                 text: 'Mã số sinh viên của bạn đã được ghi nhận. Cảm ơn vì bạn đã tham gia nhé!',
