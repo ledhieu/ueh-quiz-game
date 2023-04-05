@@ -7,10 +7,10 @@
 
     let currentQuestionNum, usedQuestion, question;
     let answersLeft = 2;
-    let active = false, nameFormActive = true, theleActive = false;
+    let active = false, nameFormActive = false, theleActive = true;
     let answer;
     let timer, announcement;
-    let MSSV;
+    let MSSV = '';
     let score = 0;
     let musicShow = false;
 
@@ -75,8 +75,8 @@
             window.phaserPlugin.stop('main game')
             window.phaserPlugin.start('win', { mssv: MSSV })
             
-            console.log('sending from client')
-            fetch('/send', {
+            // console.log('sending from client')
+            /*fetch('/send', {
                 method: 'POST',
                 body: JSON.stringify({mssv: MSSV})
             }).then(async result => {
@@ -100,10 +100,20 @@
                 confirmButtonText: "Đóng"
                 })
             })
+            */
+            Swal.fire({
+                title: 'Chúc mừng bạn',
+                text: 'Mặc dù chúng mình không nghi nhận MSSV nữa nhưng chúng mình cũng cảm ơn vì bạn đã tham gia nhé!',
+                icon: 'success',
+                timer: 5000,
+                confirmButtonText: "Đóng"
+            })
         }
         window.getScore = () => {
             return score;
         }
+        // show the le immediately
+        handleMSSVInput()
     })
 
     function handleClick(choice){
@@ -155,6 +165,15 @@
     function handleMSSVInput(){
         nameFormActive = false;
         theleActive = true;
+        // startMusic();
+    }
+    function startGame(){
+        theleActive = false;
+        startMusic();
+        window.phaserPlugin.start('main game')
+    }
+
+    function startMusic(){
         const music = document.getElementById('music')
         music.volume = 0.15
         music.play();
@@ -162,10 +181,6 @@
         setTimeout(() => {
             musicShow = false;
         }, 3000)
-    }
-    function startGame(){
-        theleActive = false;
-        window.phaserPlugin.start('main game')
     }
 </script>
 <audio id="music" controls autoplay style="" class:show={musicShow}>
